@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const { urlValidator } = require('./utils/urlValidator');
 const NotFoundError = require('./errors/not-found-err');
 
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(limiter);
+app.use(cors);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -31,6 +33,7 @@ app.post('/signin', celebrate({
     password: Joi.string().required(),
   }),
 }), login);
+
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),

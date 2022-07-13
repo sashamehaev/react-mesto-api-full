@@ -1,6 +1,6 @@
 {
-  "name": "react-mesto-auth",
-  "homepage": "https://sashamehaev.github.io/react-mesto-auth",
+  "name": "react-mesto-api-full",
+  "homepage": "https://sashamehaev.github.io/react-mesto-api-full",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && scp -r ./build/* alexandrmekhaev@51.250.107.57:/home/alexandrmekhaev/react-mesto-api-full/frontend"
   },
   "eslintConfig": {
     "extends": [

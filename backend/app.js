@@ -7,6 +7,7 @@ const { celebrate, Joi, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
+require('dotenv').config();
 const { urlValidator } = require('./utils/urlValidator');
 const NotFoundError = require('./errors/not-found-err');
 

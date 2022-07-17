@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
@@ -7,7 +8,6 @@ const { celebrate, Joi, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
-require('dotenv').config();
 const { urlValidator } = require('./utils/urlValidator');
 const NotFoundError = require('./errors/not-found-err');
 

@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 function InfoTooltip(props) {
     const { onClose } = props;
     const isOpen = props.isOpen ? 'popup_opened' : '';

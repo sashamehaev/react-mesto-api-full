@@ -87,9 +87,7 @@ class Api {
                 .then((res) => {
                     return this._getResponse(res);
                 });
-        }
-
-        else {
+        } else {
             return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
                 method: 'PUT',
                 headers: {
@@ -122,7 +120,7 @@ class Api {
 }
 
 export const api = new Api({
-    baseUrl: 'api.sashamehaev-mesto.nomoredomains.xyz',
+    baseUrl: 'https://api.sashamehaev-mesto.nomoredomains.xyz',
     headers: {
         'Content-Type': 'application/json'
     }

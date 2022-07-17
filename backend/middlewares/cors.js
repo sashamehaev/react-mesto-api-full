@@ -1,6 +1,6 @@
 const allowedCors = [
-  'api.sashamehaev-mesto.nomoredomains.xyz',
-  'sashamehaev-mesto.nomoredomains.xyz'
+  'https://api.sashamehaev-mesto.nomoredomains.xyz',
+  'https://sashamehaev-mesto.nomoredomains.xyz'
 ];
 
 module.exports = (req, res, next) => {
@@ -22,8 +22,6 @@ module.exports = (req, res, next) => {
 
     return res.end();
   }
-
-
 
   return next();
 };

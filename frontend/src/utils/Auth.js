@@ -1,4 +1,4 @@
-export const BASE_URL = 'api.sashamehaev-mesto.nomoredomains.xyz';
+export const BASE_URL = 'https://api.sashamehaev-mesto.nomoredomains.xyz';
 
 function getResponse(res) {
   if (res.ok) {

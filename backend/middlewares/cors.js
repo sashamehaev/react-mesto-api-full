@@ -1,6 +1,7 @@
 const allowedCors = [
   'https://api.sashamehaev-mesto.nomoredomains.xyz',
-  'https://sashamehaev-mesto.nomoredomains.xyz'
+  'https://sashamehaev-mesto.nomoredomains.xyz',
+  'localhost:3000'
 ];
 
 module.exports = (req, res, next) => {

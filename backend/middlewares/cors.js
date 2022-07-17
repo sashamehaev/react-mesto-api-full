@@ -1,6 +1,8 @@
 const allowedCors = [
   'https://api.sashamehaev-mesto.nomoredomains.xyz',
+  'http//api.sashamehaev-mesto.nomoredomains.xyz',
   'https://sashamehaev-mesto.nomoredomains.xyz',
+  'http://sashamehaev-mesto.nomoredomains.xyz',
   'localhost:3000'
 ];
 

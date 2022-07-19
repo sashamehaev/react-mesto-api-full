@@ -1,7 +1,7 @@
 {
   "name": "react-mesto-api-full",
   "version": "1.0.0",
-  "description": "Проект Mesto фронтенд + бэкенд",
+  "description": "Проект mesto фронтенд + бэкенд",
   "main": "app.js",
   "scripts": {
     "lint": "npx eslint .",

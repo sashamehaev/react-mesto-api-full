@@ -13,7 +13,6 @@ class Api {
     }
 
     getUserInfo(token) {
-        const jwt = this._authorization;
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
                 'Authorization': `Bearer ${token}`

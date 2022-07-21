@@ -12,11 +12,11 @@ class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
 
-    getUserInfo() {
+    getUserInfo(token) {
         const jwt = this._authorization;
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
-                'Authorization': jwt,
+                'Authorization': `Bearer ${token}`
             }
         })
             .then((res) => {
@@ -24,10 +24,10 @@ class Api {
             });
     }
 
-    getInitialsCard() {
+    getInitialsCard(token) {
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
-                authorization: this._authorization
+                'Authorization': `Bearer ${token}`
             }
         })
             .then((res) => {

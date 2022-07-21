@@ -99,8 +99,9 @@ function MyApp(props) {
     }
 
     useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
         if (props.loggedIn) {
-            api.getUserInfo()
+            api.getUserInfo(jwt)
                 .then((item) => {
                     setCurrentUser(item);
                 })
@@ -108,7 +109,7 @@ function MyApp(props) {
                     console.log(err);
                 });
 
-            api.getInitialsCard()
+            api.getInitialsCard(jwt)
                 .then((item) => {
                     setCards(item);
                 })

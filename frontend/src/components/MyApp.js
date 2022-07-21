@@ -54,7 +54,6 @@ function MyApp(props) {
     function handleUpdateAvatar(avatar) {
         api.setAvatar(avatar)
             .then((item) => {
-                console.log(item);
                 setCurrentUser(item);
             })
             .catch((err) => {

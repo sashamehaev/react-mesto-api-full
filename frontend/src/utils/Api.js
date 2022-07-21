@@ -13,9 +13,10 @@ class Api {
     }
 
     getUserInfo() {
+        const jwt = this._authorization;
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
-                authorization: this._authorization
+                'Authorization': jwt,
             }
         })
             .then((res) => {
@@ -122,6 +123,6 @@ class Api {
 export const api = new Api({
     baseUrl: 'https://api.sashamehaev-mesto.nomoredomains.xyz',
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 });

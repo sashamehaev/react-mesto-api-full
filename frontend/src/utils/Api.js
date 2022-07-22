@@ -1,7 +1,6 @@
 class Api {
     constructor({ baseUrl, headers, renderCards }) {
         this._baseUrl = baseUrl;
-        this._authorization = headers.authorization;
         this._renderCards = renderCards;
     }
 
@@ -34,11 +33,11 @@ class Api {
             });
     }
 
-    setUserInfo(item) {
+    setUserInfo(item, token) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: {
-                authorization: this._authorization,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(item)
@@ -48,11 +47,11 @@ class Api {
             });
     }
 
-    addCard(item) {
+    addCard(item, token) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: {
-                authorization: this._authorization,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(item)
@@ -62,11 +61,11 @@ class Api {
             });
     }
 
-    deleteCard(cardId) {
+    deleteCard(cardId, token) {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
-                authorization: this._authorization,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
         })
@@ -75,12 +74,12 @@ class Api {
             });
     }
 
-    changeLikeCardStatus(cardId, isLiked) {
+    changeLikeCardStatus(cardId, isLiked, token) {
         if (isLiked) {
             return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
                 method: 'DELETE',
                 headers: {
-                    authorization: this._authorization,
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
             })
@@ -91,7 +90,7 @@ class Api {
             return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
                 method: 'PUT',
                 headers: {
-                    authorization: this._authorization,
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
             })
@@ -102,11 +101,11 @@ class Api {
 
     }
 
-    setAvatar(url) {
+    setAvatar(url, token) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
-                authorization: this._authorization,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({

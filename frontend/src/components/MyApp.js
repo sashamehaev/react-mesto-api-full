@@ -44,7 +44,8 @@ function MyApp(props) {
     }
 
     function handleUpdateUser(user) {
-        api.setUserInfo(user)
+        const jwt = localStorage.getItem('jwt');
+        api.setUserInfo(user, jwt)
             .then((item) => setCurrentUser(item))
             .catch((err) => {
                 console.log(err);
@@ -52,7 +53,8 @@ function MyApp(props) {
     }
 
     function handleUpdateAvatar(avatar) {
-        api.setAvatar(avatar)
+        const jwt = localStorage.getItem('jwt');
+        api.setAvatar(avatar, jwt)
             .then((item) => {
                 setCurrentUser(item);
             })
@@ -62,9 +64,10 @@ function MyApp(props) {
     }
 
     function handleCardLike(card) {
+        const jwt = localStorage.getItem('jwt');
         const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-        api.changeLikeCardStatus(card._id, isLiked)
+        api.changeLikeCardStatus(card._id, isLiked, jwt)
             .then((newCard) => {
                 setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
             })
@@ -74,7 +77,8 @@ function MyApp(props) {
     }
 
     function handleCardDelete(card) {
-        api.deleteCard(card._id)
+        const jwt = localStorage.getItem('jwt');
+        api.deleteCard(card._id, jwt)
             .then(() => {
                 setCards((state) => state.filter((item) => card._id !== item._id));
             })
@@ -84,7 +88,8 @@ function MyApp(props) {
     }
 
     function handleAddPlaceSubmit(card) {
-        api.addCard(card)
+        const jwt = localStorage.getItem('jwt');
+        api.addCard(card, jwt)
             .then((newCard) => {
                 setCards([newCard, ...cards]);
             })

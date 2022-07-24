@@ -3,10 +3,16 @@ const NotFoundError = require('../errors/not-found-err');
 const ValidationError = require('../errors/validation-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => res.send(cards))
-    .catch((err) => res.status(500).send({ message: err.message }));
+    .catch((err) => {
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
+        next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.createCard = (req, res, next) => {
@@ -17,8 +23,9 @@ module.exports.createCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -42,8 +49,9 @@ module.exports.deleteCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -58,8 +66,9 @@ module.exports.likeCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -74,7 +83,8 @@ module.exports.dislikeCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };

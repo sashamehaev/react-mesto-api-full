@@ -6,12 +6,12 @@ const NotFoundError = require('../errors/not-found-err');
 const ValidationError = require('../errors/validation-err');
 const AuthError = require('../errors/auth-err');
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET = 'some-secret-key' } = process.env;
 
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
-    .catch((err) => res.status(500).send({ message: err.message }));
+    .then((users) => res.status(200).send({ data: users }))
+    .catch((err) => next(err));
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
@@ -33,13 +33,14 @@ module.exports.getUserById = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       }
-      res.send(user);
+      res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -61,10 +62,11 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
-      } if (err.code === 11000) {
+      } else if (err.code === 11000) {
         next(new AuthError('Пользователь с таким email уже существует'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -76,8 +78,9 @@ module.exports.updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
@@ -89,8 +92,9 @@ module.exports.updateAvatar = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new ValidationError('Введены некорректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 

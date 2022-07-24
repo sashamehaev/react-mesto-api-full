@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
@@ -27,6 +28,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(limiter);
 app.use(cors);
+
+app.use(requestLogger);
+
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
@@ -59,10 +63,14 @@ app.use((req, res, next) => {
   next(new NotFoundError('Страницы по такому адресу не существует'));
 });
 
+app.use(errorLogger);
+
 app.use(errors());
 
 app.use((err, req, res, next) => {
-  res.status(err.statusCode).send({ message: err.message });
+  const statusCode = err.statusCode || 500;
+  const message = statusCode === 500 ? 'На сервере произошла ошибка' : err.message;
+  res.status(statusCode).send({ message });
 });
 
 app.listen(PORT, () => {

@@ -19,6 +19,7 @@ function MyApp(props) {
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
     const history = useHistory();
+    const jwt = localStorage.getItem('jwt');
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -46,7 +47,9 @@ function MyApp(props) {
     function handleUpdateUser(user) {
         const jwt = localStorage.getItem('jwt');
         api.setUserInfo(user, jwt)
-            .then((item) => setCurrentUser(item))
+            .then((item) => {
+                setCurrentUser(item);
+            })
             .catch((err) => {
                 console.log(err);
             });
@@ -65,7 +68,7 @@ function MyApp(props) {
 
     function handleCardLike(card) {
         const jwt = localStorage.getItem('jwt');
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some(i => i === currentUser._id);
 
         api.changeLikeCardStatus(card._id, isLiked, jwt)
             .then((newCard) => {
@@ -77,7 +80,6 @@ function MyApp(props) {
     }
 
     function handleCardDelete(card) {
-        const jwt = localStorage.getItem('jwt');
         api.deleteCard(card._id, jwt)
             .then(() => {
                 setCards((state) => state.filter((item) => card._id !== item._id));

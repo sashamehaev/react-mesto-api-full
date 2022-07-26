@@ -74,7 +74,7 @@ function App() {
     if (jwt) {
       Auth.checkToken(jwt)
         .then((res) => {
-          setEmail(res.data.email);
+          setEmail(res.email);
           handleLogin();
           history.push('/');
         })

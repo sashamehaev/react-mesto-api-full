@@ -5,6 +5,7 @@ const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
+    .populate(['owner', 'likes'])
     .then((cards) => res.send(cards))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
@@ -42,9 +43,7 @@ module.exports.deleteCard = (req, res, next) => {
     })
     .then(() => {
       Card.findByIdAndRemove(req.params.cardId)
-        .then((card) => {
-          res.send(card);
-        });
+        .then((card) => res.send(card));
     })
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
